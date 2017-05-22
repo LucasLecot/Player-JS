@@ -35,9 +35,10 @@ var audio = document.querySelector(".audio");
 var title = document.querySelector("h3");
 var artist = document.querySelector("h4");
 var time = document.querySelector("h5");
-var voice = document.querySelector('.voice');
-var bar = document.querySelector('.bar');
-var pointer = document.querySelector('.pointer');
+var voice = document.querySelector(".voice");
+var bar = document.querySelector(".bar");
+var pointer = document.querySelector(".pointer");
+var cover = document.querySelector(".cover");
 
 //          VARIABLES
 var bWidth = bar.offsetWidth;
@@ -80,6 +81,12 @@ function goNext() {
     i++;
     if (i === songs.length) {
         i = 0;
+    }
+
+    if (songs[i].playlist == "playlist_01") {
+        cover.style.backgroundImage == "../img/cover/MAYplaylist01";
+    } else {
+        cover.style.backgroundImage == "../img/cover/MAYplaylist02";
     }
     audio.src = songs[i].path;
     audio.play().autoplay;
