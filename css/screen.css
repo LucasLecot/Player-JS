@@ -146,26 +146,26 @@ h5 {
     }
 }
 
-@media screen and (max-width: 480px) {
-    h1 {
-        color: #000000;
-    }
+/*@media screen and (max-width: 480px) {*/
+    /*h1 {*/
+        /*color: #000000;*/
+    /*}*/
 
-    h3 {
-        color: #000000;
-    }
+    /*h3 {*/
+        /*color: #000000;*/
+    /*}*/
 
-    h4 {
-        color: #000000;
-    }
+    /*h4 {*/
+        /*color: #000000;*/
+    /*}*/
 
-    h5 {
-        color: #000000;
-    }
+    /*h5 {*/
+        /*color: #000000;*/
+    /*}*/
 
-    .cover {
-        display: block;
-        width: 100%;
-        z-index: -1;
-    }
-}
+    /*.cover {*/
+        /*display: block;*/
+        /*width: 100%;*/
+        /*z-index: -1;*/
+    /*}*/
+/*}*/

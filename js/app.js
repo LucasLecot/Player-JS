@@ -60,8 +60,7 @@ bar.addEventListener('click', timeBar);
 voice.addEventListener("timeupdate", timeBarUpdate);
 audio.addEventListener("timeupdate", timeUpdate);
 audio.addEventListener("loadeddata", timeUpdate);
-
-// bWidth.addEventListener("resize", resizeBar);
+window.addEventListener("resize", resizing);
 
 //          KEYBOARD TOUCH
 document.addEventListener("keydown", spaceBarPlay);
@@ -83,11 +82,11 @@ function goNext() {
         i = 0;
     }
 
-    if (songs[i].playlist == "playlist_01") {
-        cover.style.backgroundImage == "../img/cover/MAYplaylist01";
-    } else {
-        cover.style.backgroundImage == "../img/cover/MAYplaylist02";
-    }
+    // if (songs[i].playlist == "playlist_01") {
+    //     cover.style.backgroundImage == "../img/cover/MAYplaylist01";
+    // } else {
+    //     cover.style.backgroundImage == "../img/cover/MAYplaylist02";
+    // }
     audio.src = songs[i].path;
     audio.play().autoplay;
     title.innerHTML = songs[i].title;
@@ -166,4 +165,8 @@ function calculateTime(test) {
             return i + ":" + j;
         }
     }
+}
+
+function resizing(e) {
+    console.log(e);
 }
