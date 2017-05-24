@@ -56,6 +56,7 @@ h5 {
     font-weight: 300;
     z-index: 20;
     margin-top: 50px;
+    margin-bottom: 55px;
 }
 
 .option {
@@ -92,7 +93,7 @@ h5 {
     background: rgb(10, 10, 10);
     border-top: 1px solid #42E695;
     width: 100%;
-    height: 200px;
+    /*height: 200px;*/
     position: relative;
     margin-top: 20px;
     border-radius: 0 0 5px 5px;
@@ -132,12 +133,24 @@ h5 {
     font-size: 3em;
 }
 
+.glyphicon-backward {
+    display: none;
+    font-size: 3em;
+    color: #2a733d;
+}
+
 .glyphicon-step-backward:active {
     color: #2a733d;
 }
 
 .glyphicon-step-forward {
     font-size: 3em;
+}
+
+.glyphicon-forward {
+    display: none;
+    font-size: 3em;
+    color: #2a733d;
 }
 
 .glyphicon-step-forward:active {
@@ -232,16 +245,53 @@ h5 {
         margin-top: 0;
     }
 
-    h1 {
-        font-size: 4em;
+    .cover {
+        margin-top: 5px;
     }
 
-    h3 {
+    h1 {
         font-size: 2.5em;
     }
 
+    h3 {
+        font-size: 1.5em;
+        margin-top: 5px;
+    }
+
     h4 {
+        font-size: 1em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    .player {
+        margin-top: 5px;
+    }
+
+    .glyphicon-play {
         font-size: 2em;
+    }
+
+    .glyphicon-pause {
+        font-size: 2em;
+    }
+
+    .glyphicon-step-backward {
+        font-size: 2em;
+    }
+
+    .glyphicon-step-forward {
+        font-size: 2em;
+    }
+
+    .bar {
+        height: 100px;
+    }
+
+    .pointer {
+        height: 100px;
     }
 
 }

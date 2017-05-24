@@ -33,11 +33,11 @@ var next = document.querySelector(".glyphicon-step-forward");
 var prev = document.querySelector(".glyphicon-step-backward");
 var volumeOn = document.querySelector(".glyphicon-volume-up");
 var volumeOff = document.querySelector(".glyphicon-volume-off");
+var repeat = document.querySelector(".glyphicon-repeat");
 var audio = document.querySelector(".audio");
 var title = document.querySelector("h3");
 var artist = document.querySelector("h4");
 var time = document.querySelector("h5");
-var voice = document.querySelector(".voice");
 var bar = document.querySelector(".bar");
 var pointer = document.querySelector(".pointer");
 var cover = document.querySelector("img");
@@ -52,23 +52,44 @@ artist.innerHTML = songs[i].artist;
 audio.src = songs[i].path;
 
 //          EVENT CLICK
+//          -PLAY-
 play.addEventListener("click", goPlay);
+//          -PAUSE-
 pause.addEventListener("click", goPause);
-next.addEventListener("click", goNext);
-prev.addEventListener("click", goPrev);
+//          -NEXT-
+next.addEventListener("mouseup", goNext);
+//          -PREV-
+prev.addEventListener("mouseup", goPrev);
+
+//          -BUTTON PLAY-
 play.addEventListener("click", playToPause);
+//          -BUTTON PAUSE-
 pause.addEventListener("click", pauseToPlay);
+
+//          -VOLUME-
 volumeOn.addEventListener('click', volumeOnOff);
 volumeOff.addEventListener('click', volumeOffOn);
+
+//          -REPEAT-
+repeat.addEventListener('click', goRepeat);
+
+//          -TIMEBAR-
 bar.addEventListener('click', timeBar);
-voice.addEventListener("timeupdate", timeBarUpdate);
+
+//          OTHER EVENT
+//          -AUDIO-
+audio.addEventListener("timeupdate", timeBarUpdate);
 audio.addEventListener("timeupdate", timeUpdate);
 audio.addEventListener("loadeddata", timeUpdate);
-window.addEventListener("resize", resizing);
 
-//          KEYBOARD TOUCH
+//          -KEYBOARD-
 document.addEventListener("keydown", spaceBarPlay);
-document.addEventListener("keydown", nextPrev);
+document.addEventListener("keydown", nextPrevKey);
+document.addEventListener("keydown", repeatKey);
+document.addEventListener("keydown", muteKey);
+
+//          -WINDOW-
+document.addEventListener("contextmenu", noMenu);
 
 //          FUNCTIONS
 function goPlay() {
@@ -128,11 +149,13 @@ function pauseToPlay() {
 function volumeOnOff() {
     volumeOn.style.display = "none";
     volumeOff.style.display = "flex";
+    audio.volume = 0;
 }
 
 function volumeOffOn() {
     volumeOn.style.display = "flex";
     volumeOff.style.display = "none";
+    audio.volume = 1;
 }
 
 function spaceBarPlay(e) {
@@ -149,7 +172,7 @@ function spaceBarPlay(e) {
     }
 }
 
-function nextPrev(e) {
+function nextPrevKey(e) {
     if (e.keyCode == 37) {
         goPrev();
     }
@@ -159,9 +182,25 @@ function nextPrev(e) {
     }
 }
 
+function repeatKey(e) {
+    if (e.keyCode == 82) {
+        goRepeat();
+    }
+}
+
+function muteKey(e) {
+    if (e.keyCode == 77) {
+        if (volumeOn.style.display === "flex") {
+            volumeOnOff();
+        } else {
+            volumeOffOn();
+        }
+    }
+}
+
 function timeBar(e) {
     var lol = e.offsetX;
-    voice.currentTime = ((voice.duration*lol)/bWidth);
+    audio.currentTime = ((audio.duration*lol)/bWidth);
 }
 
 function timeBarUpdate() {
@@ -191,6 +230,10 @@ function calculateTime(test) {
     }
 }
 
-function resizing(e) {
-    // console.log(e);
+function goRepeat() {
+    audio.currentTime = 0;
+}
+
+function noMenu(e) {
+    e.preventDefault();
 }
