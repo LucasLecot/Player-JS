@@ -31,6 +31,8 @@ var play = document.querySelector(".glyphicon-play");
 var pause = document.querySelector(".glyphicon-pause");
 var next = document.querySelector(".glyphicon-step-forward");
 var prev = document.querySelector(".glyphicon-step-backward");
+var volumeOn = document.querySelector(".glyphicon-volume-up");
+var volumeOff = document.querySelector(".glyphicon-volume-off");
 var audio = document.querySelector(".audio");
 var title = document.querySelector("h3");
 var artist = document.querySelector("h4");
@@ -38,7 +40,7 @@ var time = document.querySelector("h5");
 var voice = document.querySelector(".voice");
 var bar = document.querySelector(".bar");
 var pointer = document.querySelector(".pointer");
-var cover = document.querySelector(".cover");
+var cover = document.querySelector("img");
 
 //          VARIABLES
 var bWidth = bar.offsetWidth;
@@ -56,6 +58,8 @@ next.addEventListener("click", goNext);
 prev.addEventListener("click", goPrev);
 play.addEventListener("click", playToPause);
 pause.addEventListener("click", pauseToPlay);
+volumeOn.addEventListener('click', volumeOnOff);
+volumeOff.addEventListener('click', volumeOffOn);
 bar.addEventListener('click', timeBar);
 voice.addEventListener("timeupdate", timeBarUpdate);
 audio.addEventListener("timeupdate", timeUpdate);
@@ -82,11 +86,11 @@ function goNext() {
         i = 0;
     }
 
-    // if (songs[i].playlist == "playlist_01") {
-    //     cover.style.backgroundImage == "../img/cover/MAYplaylist01";
-    // } else {
-    //     cover.style.backgroundImage == "../img/cover/MAYplaylist02";
-    // }
+    if (songs[i].playlist === "playlist_01") {
+        cover.src = "img/cover/MAYplaylist01.jpg";
+    } else {
+        cover.src = "img/cover/MAYplaylist02.jpg";
+    }
     audio.src = songs[i].path;
     audio.play().autoplay;
     title.innerHTML = songs[i].title;
@@ -98,6 +102,12 @@ function goPrev() {
     i--;
     if (i < 0) {
         i = songs.length - 1;
+    }
+
+    if (songs[i].playlist === "playlist_01") {
+        cover.src = "img/cover/MAYplaylist01.jpg";
+    } else {
+        cover.src = "img/cover/MAYplaylist02.jpg";
     }
     audio.src = songs[i].path;
     audio.play().autoplay;
@@ -113,6 +123,16 @@ function playToPause() {
 function pauseToPlay() {
     pause.style.display = "none";
     play.style.display = "flex";
+}
+
+function volumeOnOff() {
+    volumeOn.style.display = "none";
+    volumeOff.style.display = "flex";
+}
+
+function volumeOffOn() {
+    volumeOn.style.display = "flex";
+    volumeOff.style.display = "none";
 }
 
 function spaceBarPlay(e) {
@@ -153,20 +173,24 @@ function timeUpdate() {
 }
 
 function calculateTime(test) {
-    var i = parseInt(test / 60);
-    var j = parseInt(test - (i*60));
+    var j = parseInt(test / 60);
+    var k = parseInt(test - (j*60));
 
     if (test === audio.duration) {
-        return i + ":" + j;
-    } else {
-        if (j < 10) {
-            return i + ":0" + j;
+        if (k < 10) {
+            return j + ":0" + k;
         } else {
-            return i + ":" + j;
+            return j + ":" + k;
+        }
+    } else {
+        if (k < 10) {
+            return j + ":0" + k;
+        } else {
+            return j + ":" + k;
         }
     }
 }
 
 function resizing(e) {
-    console.log(e);
+    // console.log(e);
 }
