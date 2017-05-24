@@ -86,7 +86,7 @@ audio.addEventListener("loadeddata", timeUpdate);
 document.addEventListener("keydown", spaceBarPlay);
 document.addEventListener("keydown", nextPrevKey);
 document.addEventListener("keydown", repeatKey);
-document.addEventListener("keydown", muteKey);
+document.addEventListener("keyup", muteKey);
 
 //          -WINDOW-
 document.addEventListener("contextmenu", noMenu);
@@ -190,7 +190,7 @@ function repeatKey(e) {
 
 function muteKey(e) {
     if (e.keyCode == 77) {
-        if (volumeOn.style.display === "flex") {
+        if (volumeOff.style.display == "none" && volumeOn.style.display == "flex") {
             volumeOnOff();
         } else {
             volumeOffOn();
@@ -216,12 +216,20 @@ function calculateTime(test) {
     var k = parseInt(test - (j*60));
 
     if (test === audio.duration) {
+        if (isNaN(test)) {
+            return "0:00";
+        }
+
         if (k < 10) {
             return j + ":0" + k;
         } else {
             return j + ":" + k;
         }
     } else {
+        if(isNaN(test)) {
+            return "0:00";
+        }
+
         if (k < 10) {
             return j + ":0" + k;
         } else {

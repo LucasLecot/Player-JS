@@ -79,12 +79,18 @@ h5 {
 .glyphicon-volume-off {
     display: none;
     color: #2c7a59;
-    font-size: 1.5em;
+    font-size: 1.7em;
 }
 
 .glyphicon-volume-up {
     display: flex;
     color: #42E695;
+    font-size: 1.7em;
+}
+
+.glyphicon-random {
+    display: flex;
+    color: #2a733d;
     font-size: 1.5em;
 }
 
