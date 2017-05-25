@@ -1,27 +1,56 @@
 //          JSON SONGS
+var imgCover = "img/cover";
 var songs = [
     {
         title: "Battery",
         path: "musics/Battery.mp3",
         artist: "Sadhu Sensi",
-        playlist: "playlist_01"
+        playlist: "playlist_01",
+        cover: imgCover + "ReturnToDust.jpg"
     },
     {
         title: "Disco Dub",
         path: "musics/Disco Dub.mp3",
         artist: "Sadhu Sensi",
-        playlist: "playlist_01"
+        playlist: "playlist_01",
+        cover: imgCover + "ReturnToDust.jpg"
     },
     {
         title: "Madakara",
         path: "musics/Madakara.mp3",
         artist: "Sadhu Sensi",
-        playlist: "playlist_02"
+        playlist: "playlist_02",
+        cover: imgCover + "Madakara.jpg"
     },{
         title: "Never Forgot",
         path: "musics/Never Forgot.mp3",
         artist: "Sadhu Sensi",
-        playlist: "playlist_02"
+        playlist: "playlist_02",
+        cover: imgCover + "ReturnToDust.jpg"
+    },{
+        title: "De La Luz",
+        path: "musics/De La Luz.mp3",
+        artist: "Fakear",
+        playlist: "playlist_03",
+        cover: imgCover + "Animal.jpg"
+    },{
+        title: "Never Be Like You",
+        path: "musics/Never Be Like You.mp3",
+        artist: "Flume",
+        playlist: "playlist_03",
+        cover: imgCover + "Skin.jpg"
+    },{
+        title: "Lite Spots",
+        path: "musics/Lite Spots.mp3",
+        artist: "Kaytranada",
+        playlist: "playlist_04",
+        cover: imgCover + "99.9.jpg"
+    },{
+        title: "Espoir",
+        path: "musics/Espoir.mp3",
+        artist: "Darius",
+        playlist: "playlist_04",
+        cover: imgCover + "Romance.jpg"
     }
 
 ];
@@ -41,15 +70,18 @@ var time = document.querySelector("h5");
 var bar = document.querySelector(".bar");
 var pointer = document.querySelector(".pointer");
 var cover = document.querySelector("img");
+var repeatOne = document.querySelector(".badge");
 
 //          VARIABLES
 var bWidth = bar.offsetWidth;
 var i = 0;
+// var l = 0;
 
 //          INITIALIZE
 title.innerHTML = songs[i].title;
 artist.innerHTML = songs[i].artist;
 audio.src = songs[i].path;
+cover.src = songs[i].cover;
 
 //          EVENT CLICK
 //          -PLAY-
@@ -105,13 +137,11 @@ function goNext() {
     i++;
     if (i === songs.length) {
         i = 0;
+        // Re-voir la fonction de répétition
+        // goRepeat();
     }
 
-    if (songs[i].playlist === "playlist_01") {
-        cover.src = "img/cover/MAYplaylist01.jpg";
-    } else {
-        cover.src = "img/cover/MAYplaylist02.jpg";
-    }
+    cover.src = songs[i].cover;
     audio.src = songs[i].path;
     audio.play().autoplay;
     title.innerHTML = songs[i].title;
@@ -125,11 +155,7 @@ function goPrev() {
         i = songs.length - 1;
     }
 
-    if (songs[i].playlist === "playlist_01") {
-        cover.src = "img/cover/MAYplaylist01.jpg";
-    } else {
-        cover.src = "img/cover/MAYplaylist02.jpg";
-    }
+    cover.src = songs[i].cover;
     audio.src = songs[i].path;
     audio.play().autoplay;
     title.innerHTML = songs[i].title;
@@ -209,14 +235,17 @@ function timeBarUpdate() {
 
 function timeUpdate() {
     time.innerHTML = calculateTime(audio.currentTime) + " | " + calculateTime(audio.duration);
+    if (audio.currentTime === audio.duration) {
+        goNext();
+    }
 }
 
-function calculateTime(test) {
-    var j = parseInt(test / 60);
-    var k = parseInt(test - (j*60));
+function calculateTime(time) {
+    var j = parseInt(time / 60);
+    var k = parseInt(time - (j*60));
 
-    if (test === audio.duration) {
-        if (isNaN(test)) {
+    if (time === audio.duration) {
+        if (isNaN(time)) {
             return "0:00";
         }
 
@@ -226,7 +255,7 @@ function calculateTime(test) {
             return j + ":" + k;
         }
     } else {
-        if(isNaN(test)) {
+        if(isNaN(time)) {
             return "0:00";
         }
 
@@ -239,8 +268,41 @@ function calculateTime(test) {
 }
 
 function goRepeat() {
+    // Re-voir la fonction de repeat
+    // l++;
+    // if (l === 3) {
+    //     l = 0;
+    // }
+    // switch (l) {
+    //     case 0:
+    //         repeat.className = "glyphicon glyphicon-repeat";
+    //         repeatOne.style.display = "none";
+    //         noRepeat(l);
+    //         break;
+    //     case 1:
+    //         repeat.className = "glyphicon glyphicon-repeat repeat-all";
+    //         repeatAll(l);
+    //         break;
+    //     case 2:
+    //         repeat.className = "glyphicon glyphicon-repeat repeat-one";
+    //         repeatOne.style.display = "block";
+    //         repeatOne(l);
+    //         break;
+    // }
     audio.currentTime = 0;
 }
+
+function random() {
+    Math.floor((Math.random() * songs.length) + 1);
+}
+
+// Re-voir la fonction de repeat
+// function noRepeat(l) {
+//     if (i === songs.length) {
+//         i = 0;
+//         audio.pause();
+//     }
+// }
 
 function noMenu(e) {
     e.preventDefault();

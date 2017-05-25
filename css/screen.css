@@ -68,12 +68,30 @@ h5 {
 
 .glyphicon-repeat {
     display: flex;
-    color: #42E695;
+    color: #2c7a59;
     font-size: 1.5em;
+    position: relative;
 }
 
-.glyphicon-repeat:active {
-    color: #2c7a59;
+.repeat-all {
+    color: #42E695;
+}
+
+.repeat-one {
+    color: #42E695;
+}
+
+.badge {
+    font-family: 'Poppins', sans-serif;
+    color: black;
+    display: none;
+    padding: 5px 4px 4px 4px !important;
+    line-height: 0.4;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 2;
+    background-color: #42E695;
 }
 
 .glyphicon-volume-off {
@@ -215,28 +233,62 @@ h5 {
         font-size: 1.5em;
     }
 
+    .option {
+        margin-top: 10px;
+    }
+
+    .glyphicon-repeat {
+        padding: 10px;
+    }
+
+    .badge {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+    }
+
+    .glyphicon-volume-off {
+        padding: 10px;
+    }
+
+    .glyphicon-volume-up {
+        padding: 10px;
+    }
+
+    .glyphicon-random {
+        padding: 10px;
+    }
+
+    .player span {
+        margin: 0;
+    }
+
     .glyphicon-play {
         font-size: 4em;
+        padding: 20px;
     }
 
     .glyphicon-pause {
         font-size: 4em;
+        padding: 20px;
     }
 
     .glyphicon-step-backward {
         font-size: 4em;
+        padding: 20px;
     }
 
     .glyphicon-step-forward {
         font-size: 4em;
+        padding: 20px;
     }
 
     .bar {
-        height: 250px;
+        height: 244px;
     }
 
     .pointer {
-        height: 250px;
+        height: 244px;
     }
 
     .cover img {
@@ -270,34 +322,44 @@ h5 {
 
     h5 {
         font-size: 1em;
+        margin: 35px 0 10px 0;
     }
 
     .player {
         margin-top: 5px;
     }
 
+    .badge {
+        line-height: 0.4;
+        padding: 6px 5px 5px 5px !important;
+    }
+
     .glyphicon-play {
         font-size: 2em;
+        padding: 10px;
     }
 
     .glyphicon-pause {
         font-size: 2em;
+        padding: 10px;
     }
 
     .glyphicon-step-backward {
         font-size: 2em;
+        padding: 10px;
     }
 
     .glyphicon-step-forward {
         font-size: 2em;
+        padding: 10px;
     }
 
     .bar {
-        height: 100px;
+        height: 128px;
     }
 
     .pointer {
-        height: 100px;
+        height: 128px;
     }
 
 }
