@@ -112,6 +112,11 @@ h5 {
     font-size: 1.5em;
 }
 
+.random-active {
+    display: none;
+    color: #42E695;
+}
+
 .glyphicon-heart-empty {
     display: flex;
     color: #42E695;

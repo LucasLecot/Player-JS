@@ -52,7 +52,6 @@ var songs = [
         playlist: "playlist_04",
         cover: imgCover + "Romance.jpg"
     }
-
 ];
 
 //          SELECTORS ELEMENTS
@@ -65,6 +64,8 @@ var volumeOff = document.querySelector(".glyphicon-volume-off");
 var repeat = document.querySelector(".glyphicon-repeat");
 var noLike = document.querySelector(".glyphicon-heart-empty");
 var like = document.querySelector(".glyphicon-heart");
+var random = document.querySelector(".glyphicon-random");
+var randomActive = document.querySelector(".random-active");
 var audio = document.querySelector(".audio");
 var title = document.querySelector("h3");
 var artist = document.querySelector("h4");
@@ -77,7 +78,7 @@ var repeatOne = document.querySelector(".badge");
 //          VARIABLES
 var bWidth = bar.offsetWidth;
 var i = 0;
-// var l = 0;
+var l = 0;
 
 //          INITIALIZE
 title.innerHTML = songs[i].title;
@@ -107,6 +108,10 @@ volumeOff.addEventListener('click', volumeOffOn);
 //          -REPEAT-
 repeat.addEventListener('click', goRepeat);
 
+//          -RANDOM-
+random.addEventListener("click", verifRandom);
+randomActive.addEventListener("click", verifRandom);
+
 //          -LIKE-
 noLike.addEventListener("click", goLike);
 like.addEventListener("click", goLike);
@@ -131,27 +136,54 @@ document.addEventListener("contextmenu", noMenu);
 
 //          FUNCTIONS
 function goPlay() {
-    audio.play();
+    return audio.play();
 }
 
 function goPause() {
-    audio.pause();
+    return audio.pause();
 }
 
 function goNext() {
-    playToPause();
-    i++;
-    if (i === songs.length) {
-        i = 0;
-        // Re-voir la fonction de répétition
-        // goRepeat();
-    }
+    if (random.style.display === "none" && randomActive.style.display === "flex") {
+        i = Math.floor(Math.random() * songs.length);
+        if (Math.floor(Math.random() * songs.length) === i) {
+            i = Math.floor(Math.random() * songs.length);
+        }
+        cover.src = songs[i].cover;
+        audio.src = songs[i].path;
+        audio.play().autoplay;
+        title.innerHTML = songs[i].title;
+        artist.innerHTML = songs[i].artist;
+    } else {
+        // console.log("je ne rentre pas");
+        playToPause();
+        i++;
 
-    cover.src = songs[i].cover;
-    audio.src = songs[i].path;
-    audio.play().autoplay;
-    title.innerHTML = songs[i].title;
-    artist.innerHTML = songs[i].artist;
+        if (i === songs.length) {
+            i = 0;
+            // Re-voir la fonction de répétition
+            // goRepeat();
+        }
+        cover.src = songs[i].cover;
+        audio.src = songs[i].path;
+        audio.play().autoplay;
+        title.innerHTML = songs[i].title;
+        artist.innerHTML = songs[i].artist;
+    }
+}
+
+function verifRandom() {
+    if (random.style.display === "none" && randomActive.style.display === "flex") {
+        randomActive.style.display = "none";
+        random.style.display = "flex";
+
+        return 1;
+    } else {
+        randomActive.style.display = "flex";
+        random.style.display = "none";
+
+        return 0;
+    }
 }
 
 function goPrev() {
@@ -284,31 +316,42 @@ function goRepeat() {
     //         repeat.className = "glyphicon glyphicon-repeat";
     //         repeatOne.style.display = "none";
     //         noRepeat(l);
+    //         return 0;
     //         break;
     //     case 1:
     //         repeat.className = "glyphicon glyphicon-repeat repeat-all";
-    //         repeatAll(l);
+    //         return 1;
+    //         // repeatAll(l);
     //         break;
     //     case 2:
     //         repeat.className = "glyphicon glyphicon-repeat repeat-one";
     //         repeatOne.style.display = "block";
-    //         repeatOne(l);
+    //         return 2;
+    //         // repeatOne(l);
     //         break;
     // }
+
     audio.currentTime = 0;
 }
 
-function random() {
-    Math.floor((Math.random() * songs.length) + 1);
+// Re-voir la fonction de repeat
+function noRepeat(l) {
+    // if (i === songs.length) {
+    //     console.log("noRepeat");
+    //     return 1;
+    // }
+
 }
 
-// Re-voir la fonction de repeat
-// function noRepeat(l) {
-//     if (i === songs.length) {
-//         i = 0;
-//         audio.pause();
-//     }
-// }
+function verif() {
+    if (goRepeat() === 1 && verifRandom() === 1) {
+        console.log("noRepeat et noRandom");
+    } else if (goRepeat() === 1 && verifRandom() === 0) {
+        console.log("noRepeat et random");
+    } else if (goRepeat() === 0 && verifRandom() === 1) {
+        console.log("Repeat et noRandom");
+    }
+}
 
 function noMenu(e) {
     e.preventDefault();
