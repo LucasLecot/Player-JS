@@ -73,6 +73,10 @@ h5 {
     position: relative;
 }
 
+.glyphicon-repeat:active {
+    color: #42E695;
+}
+
 .repeat-all {
     color: #42E695;
 }
