@@ -112,6 +112,18 @@ h5 {
     font-size: 1.5em;
 }
 
+.glyphicon-heart-empty {
+    display: flex;
+    color: #42E695;
+    font-size: 1.5em;
+}
+
+.glyphicon-heart {
+    display: none;
+    color: #ff5351;
+    font-size: 1.5em;
+}
+
 /*\\\\\\\\\\\\\\\PLAYER///////////////*/
 .player {
     background: rgb(10, 10, 10);
@@ -239,6 +251,7 @@ h5 {
 
     .glyphicon-repeat {
         padding: 10px;
+        font-size: 2em;
     }
 
     .badge {
@@ -249,14 +262,27 @@ h5 {
 
     .glyphicon-volume-off {
         padding: 10px;
+        font-size: 2em;
     }
 
     .glyphicon-volume-up {
         padding: 10px;
+        font-size: 2em;
     }
 
     .glyphicon-random {
         padding: 10px;
+        font-size: 2em;
+    }
+
+    .glyphicon-heart-empty {
+        padding: 10px;
+        font-size: 2em;
+    }
+
+    .glyphicon-heart {
+        padding: 10px;
+        font-size: 2em;
     }
 
     .player span {
@@ -323,6 +349,30 @@ h5 {
     h5 {
         font-size: 1em;
         margin: 35px 0 10px 0;
+    }
+
+    .glyphicon-repeat {
+        font-size: 1.5em;
+    }
+
+    .glyphicon-random {
+        font-size: 1.5em;
+    }
+
+    .glyphicon-volume-up {
+        font-size: 1.5em;
+    }
+
+    .glyphicon-volume-off {
+        font-size: 1.5em;
+    }
+
+    .glyphicon-heart-empty {
+        font-size: 1.5em;
+    }
+
+    .glyphicon-heart {
+        font-size: 1.5em;
     }
 
     .player {

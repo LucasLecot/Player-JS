@@ -63,6 +63,8 @@ var prev = document.querySelector(".glyphicon-step-backward");
 var volumeOn = document.querySelector(".glyphicon-volume-up");
 var volumeOff = document.querySelector(".glyphicon-volume-off");
 var repeat = document.querySelector(".glyphicon-repeat");
+var noLike = document.querySelector(".glyphicon-heart-empty");
+var like = document.querySelector(".glyphicon-heart");
 var audio = document.querySelector(".audio");
 var title = document.querySelector("h3");
 var artist = document.querySelector("h4");
@@ -104,6 +106,10 @@ volumeOff.addEventListener('click', volumeOffOn);
 
 //          -REPEAT-
 repeat.addEventListener('click', goRepeat);
+
+//          -LIKE-
+noLike.addEventListener("click", goLike);
+like.addEventListener("click", goLike);
 
 //          -TIMEBAR-
 bar.addEventListener('click', timeBar);
@@ -306,4 +312,14 @@ function random() {
 
 function noMenu(e) {
     e.preventDefault();
+}
+
+function goLike() {
+    if (noLike.style.display === "none") {
+        like.style.display = "none";
+        noLike.style.display = "flex";
+    } else {
+        like.style.display = "flex";
+        noLike.style.display = "none";
+    }
 }
