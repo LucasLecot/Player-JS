@@ -73,6 +73,7 @@ var time = document.querySelector("h5");
 var bar = document.querySelector(".bar");
 var pointer = document.querySelector(".pointer");
 var cover = document.querySelector("img");
+var numList = document.querySelector("p");
 var repeatOne = document.querySelector(".badge");
 
 //          VARIABLES
@@ -83,6 +84,7 @@ var l = 0;
 //          INITIALIZE
 title.innerHTML = songs[i].title;
 artist.innerHTML = songs[i].artist;
+numList.innerHTML = i + 1 + "/" + songs.length;
 audio.src = songs[i].path;
 cover.src = songs[i].cover;
 
@@ -102,8 +104,8 @@ play.addEventListener("click", playToPause);
 pause.addEventListener("click", pauseToPlay);
 
 //          -VOLUME-
-volumeOn.addEventListener('click', volumeOnOff);
-volumeOff.addEventListener('click', volumeOffOn);
+volumeOn.addEventListener('click', volume);
+volumeOff.addEventListener('click', volume);
 
 //          -REPEAT-
 repeat.addEventListener('click', goRepeat);
@@ -129,7 +131,9 @@ audio.addEventListener("loadeddata", timeUpdate);
 document.addEventListener("keydown", spaceBarPlay);
 document.addEventListener("keydown", nextPrevKey);
 document.addEventListener("keydown", repeatKey);
-document.addEventListener("keyup", muteKey);
+document.addEventListener("keydown", likeKey);
+document.addEventListener("keydown", muteKey);
+document.addEventListener("keydown", randomKey);
 
 //          -WINDOW-
 document.addEventListener("contextmenu", noMenu);
@@ -143,6 +147,31 @@ function goPause() {
     return audio.pause();
 }
 
+function playToPause() {
+    play.style.display = "none";
+    pause.style.display = "flex";
+}
+
+function pauseToPlay() {
+    pause.style.display = "none";
+    play.style.display = "flex";
+}
+
+//          KEYCODE SPACEBAR FOR PLAY OR PAUSE
+function spaceBarPlay(e) {
+    if (e.keyCode == 32) {
+        if (play.style.display == "none") {
+            pause.style.display = "none";
+            play.style.display = "flex";
+            goPause();
+        } else {
+            play.style.display = "none";
+            pause.style.display = "flex";
+            goPlay();
+        }
+    }
+}
+
 function goNext() {
     if (random.style.display === "none" && randomActive.style.display === "flex") {
         i = Math.floor(Math.random() * songs.length);
@@ -154,6 +183,7 @@ function goNext() {
         audio.play().autoplay;
         title.innerHTML = songs[i].title;
         artist.innerHTML = songs[i].artist;
+        numList.innerHTML = i + 1 + "/" + songs.length;
     } else {
         // console.log("je ne rentre pas");
         playToPause();
@@ -169,6 +199,92 @@ function goNext() {
         audio.play().autoplay;
         title.innerHTML = songs[i].title;
         artist.innerHTML = songs[i].artist;
+        numList.innerHTML = i + 1 + "/" + songs.length;
+    }
+}
+
+function goPrev() {
+    if (random.style.display === "none" && randomActive.style.display === "flex") {
+        i = Math.floor(Math.random() * songs.length);
+        if (Math.floor(Math.random() * songs.length) === i) {
+            i = Math.floor(Math.random() * songs.length);
+        }
+        cover.src = songs[i].cover;
+        audio.src = songs[i].path;
+        audio.play().autoplay;
+        title.innerHTML = songs[i].title;
+        artist.innerHTML = songs[i].artist;
+        numList.innerHTML = i + 1 + "/" + songs.length;
+    } else {
+        // console.log("je ne rentre pas");
+        playToPause();
+        i--;
+
+        if (i < 0) {
+            i = songs.length - 1;
+            // Re-voir la fonction de répétition
+            // goRepeat();
+        }
+        cover.src = songs[i].cover;
+        audio.src = songs[i].path;
+        audio.play().autoplay;
+        title.innerHTML = songs[i].title;
+        artist.innerHTML = songs[i].artist;
+        numList.innerHTML = i + 1 + "/" + songs.length;
+    }
+}
+
+//          KEYCODE RIGHT ARROW FOR NEXT && LEFT ARROW FOR PREV
+function nextPrevKey(e) {
+    if (e.keyCode == 37) {
+        goPrev();
+    }
+
+    if (e.keyCode == 39) {
+        goNext();
+    }
+}
+
+function goRepeat() {
+    // Re-voir la fonction de repeat
+    // l++;
+    // if (l === 3) {
+    //     l = 0;
+    // }
+    // switch (l) {
+    //     case 0:
+    //         repeat.className = "glyphicon glyphicon-repeat";
+    //         repeatOne.style.display = "none";
+    //         noRepeat(l);
+    //         return 0;
+    //         break;
+    //     case 1:
+    //         repeat.className = "glyphicon glyphicon-repeat repeat-all";
+    //         return 1;
+    //         // repeatAll(l);
+    //         break;
+    //     case 2:
+    //         repeat.className = "glyphicon glyphicon-repeat repeat-one";
+    //         repeatOne.style.display = "block";
+    //         return 2;
+    //         // repeatOne(l);
+    //         break;
+    // }
+
+    audio.currentTime = 0;
+}
+
+//          KEYCODE R FOR REPEAT
+function repeatKey(e) {
+    if (e.keyCode == 82) {
+        goRepeat();
+    }
+}
+
+//          KEYCODE A FOR RANDOM
+function randomKey(e) {
+    if (e.keyCode === 65) {
+        verifRandom();
     }
 }
 
@@ -186,79 +302,39 @@ function verifRandom() {
     }
 }
 
-function goPrev() {
-    playToPause();
-    i--;
-    if (i < 0) {
-        i = songs.length - 1;
-    }
-
-    cover.src = songs[i].cover;
-    audio.src = songs[i].path;
-    audio.play().autoplay;
-    title.innerHTML = songs[i].title;
-    artist.innerHTML = songs[i].artist;
-}
-
-function playToPause() {
-    play.style.display = "none";
-    pause.style.display = "flex";
-}
-
-function pauseToPlay() {
-    pause.style.display = "none";
-    play.style.display = "flex";
-}
-
-function volumeOnOff() {
-    volumeOn.style.display = "none";
-    volumeOff.style.display = "flex";
-    audio.volume = 0;
-}
-
-function volumeOffOn() {
-    volumeOn.style.display = "flex";
-    volumeOff.style.display = "none";
-    audio.volume = 1;
-}
-
-function spaceBarPlay(e) {
-    if (e.keyCode == 32) {
-        if (play.style.display == "none") {
-            pause.style.display = "none";
-            play.style.display = "flex";
-            goPause();
-        } else {
-            play.style.display = "none";
-            pause.style.display = "flex";
-            goPlay();
-        }
+function volume() {
+    if (volumeOn.style.display === "none" && volumeOff.style.display === "flex") {
+        volumeOn.style.display = "flex";
+        volumeOff.style.display = "none";
+        audio.volume = 1;
+    } else {
+        volumeOn.style.display = "none";
+        volumeOff.style.display = "flex";
+        audio.volume = 0;
     }
 }
 
-function nextPrevKey(e) {
-    if (e.keyCode == 37) {
-        goPrev();
-    }
-
-    if (e.keyCode == 39) {
-        goNext();
-    }
-}
-
-function repeatKey(e) {
-    if (e.keyCode == 82) {
-        goRepeat();
-    }
-}
-
+//          KEYCODE M FOR MUTE
 function muteKey(e) {
     if (e.keyCode == 77) {
-        if (volumeOff.style.display == "none" && volumeOn.style.display == "flex") {
-            volumeOnOff();
-        } else {
-            volumeOffOn();
-        }
+        volume();
+    }
+}
+
+function goLike() {
+    if (noLike.style.display === "none") {
+        like.style.display = "none";
+        noLike.style.display = "flex";
+    } else {
+        like.style.display = "flex";
+        noLike.style.display = "none";
+    }
+}
+
+//          KEYCODE L FOR LIKE
+function likeKey(e) {
+    if (e.keyCode === 76) {
+        goLike();
     }
 }
 
@@ -305,35 +381,6 @@ function calculateTime(time) {
     }
 }
 
-function goRepeat() {
-    // Re-voir la fonction de repeat
-    // l++;
-    // if (l === 3) {
-    //     l = 0;
-    // }
-    // switch (l) {
-    //     case 0:
-    //         repeat.className = "glyphicon glyphicon-repeat";
-    //         repeatOne.style.display = "none";
-    //         noRepeat(l);
-    //         return 0;
-    //         break;
-    //     case 1:
-    //         repeat.className = "glyphicon glyphicon-repeat repeat-all";
-    //         return 1;
-    //         // repeatAll(l);
-    //         break;
-    //     case 2:
-    //         repeat.className = "glyphicon glyphicon-repeat repeat-one";
-    //         repeatOne.style.display = "block";
-    //         return 2;
-    //         // repeatOne(l);
-    //         break;
-    // }
-
-    audio.currentTime = 0;
-}
-
 // Re-voir la fonction de repeat
 function noRepeat(l) {
     // if (i === songs.length) {
@@ -355,14 +402,4 @@ function verif() {
 
 function noMenu(e) {
     e.preventDefault();
-}
-
-function goLike() {
-    if (noLike.style.display === "none") {
-        like.style.display = "none";
-        noLike.style.display = "flex";
-    } else {
-        like.style.display = "flex";
-        noLike.style.display = "none";
-    }
 }

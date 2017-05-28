@@ -50,6 +50,12 @@ h4 {
     font-weight: 300;
 }
 
+p {
+    text-align: center;
+    color: #2c7a59;
+    font-weight: 300;
+}
+
 h5 {
     text-align: center;
     color: #42E695;
@@ -220,7 +226,7 @@ h5 {
 
 .cover {
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 30px;
     width: 100%;
 }
 
